@@ -5,6 +5,7 @@ import polars as pl
 
 
 def read_data(path: Path, schema: pl.Schema) -> pl.DataFrame:
+    """Read source data. Parse out the 'null' strings."""
     return pl.read_csv(source=path, null_values="null", schema=schema)
 
 
@@ -29,6 +30,7 @@ def agg_results(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_years(df: pl.DataFrame) -> list[str]:
+    """For looping over to create the sorted yearly outputs"""
     return df.get_column("year").unique().sort().to_list()
 
 
