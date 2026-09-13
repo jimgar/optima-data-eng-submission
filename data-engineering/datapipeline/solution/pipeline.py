@@ -29,8 +29,12 @@ def agg_results(df: pl.DataFrame) -> pl.DataFrame:
 
 
 def get_years(df: pl.DataFrame) -> list[str]:
-    """Distinct years present in the data; one output file is written per year."""
-    return df.get_column("year").unique().to_list()
+    return df.get_column("year").unique().sort().to_list()
+
+
+def filter_year(df: pl.DataFrame, year: str) -> pl.DataFrame:
+    """Races for one year in asc order."""
+    return df.filter(pl.col("year") == year).sort(pl.col("Race Datetime"))
 
 
 def strftime_for_output(df: pl.DataFrame) -> pl.DataFrame:
