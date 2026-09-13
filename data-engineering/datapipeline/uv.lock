@@ -12,7 +12,7 @@ wheels = [
 ]
 
 [[package]]
-name = "datapipeline"
+name = "grand-prix-stats-pipeline"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
