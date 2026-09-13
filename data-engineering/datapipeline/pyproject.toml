@@ -1,5 +1,5 @@
 [project]
-name = "Grand Prix stats pipeline"
+name = "grand-prix-stats-pipeline"
 version = "0.1.0"
 description = "Make yearly json summaries from csv race data"
 readme = "README.md"
