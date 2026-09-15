@@ -24,7 +24,7 @@ def main(data_path: Path = DATA_PATH, results_path: Path = RESULTS_PATH) -> None
     setup_logging(results_path / "logs")
     logger.info("Pipeline started")
 
-    # Parse
+    # Parse and clean
 
     # I/O of a scan loop theoretically will make worse performance, so just read
     # all into memory (files are miniscule and always will be)
@@ -69,20 +69,6 @@ def main(data_path: Path = DATA_PATH, results_path: Path = RESULTS_PATH) -> None
         logger.info(f"Wrote {filtered.height} races for {year}")
 
     logger.info("All files written!")
-
-    # # No duplicated rows
-    # print(df_races.filter(df_races.is_duplicated()))
-    # print(df_results.filter(df_results.is_duplicated()))
-
-    # # These need to be unique, and they are. Turn into unit test?
-    # # Both = 149
-    # print(df_races.select(pl.len()))
-    # print(df_races.n_unique(subset=["raceId"]))
-
-    # # These need to be unique, and they are. Turn into unit test?
-    # # Both = 2739
-    # print(df_results.select(pl.len()))
-    # print(df_results.n_unique(subset=["resultId"]))
 
 
 if __name__ == "__main__":
