@@ -1,4 +1,4 @@
-"""End-to-end: run the whole pipeline on a tiny copy of the source layout in a temp directory."""
+"""End-to-end: run the whole pipeline on a tiny bit of mock data in a temp dir."""
 
 import json
 from pathlib import Path
@@ -19,7 +19,7 @@ resultId,raceId,driverId,position,fastestLapTime
 """
 
 
-def test_pipeline_writes_one_file_per_year_in_readme_shape(tmp_path: Path) -> None:
+def test_main(tmp_path: Path) -> None:
     data_path = tmp_path / "source-data"
     results_path = tmp_path / "results"
     data_path.mkdir()
@@ -29,10 +29,13 @@ def test_pipeline_writes_one_file_per_year_in_readme_shape(tmp_path: Path) -> No
 
     main(data_path=data_path, results_path=results_path)
 
+    # Expected files are produced
     assert sorted(p.name for p in results_path.glob("*.json")) == [
         "stats_2018.json",
         "stats_2024.json",
     ]
+
+    # Expected content from a "normal" year, i.e. no nulls
     assert json.loads((results_path / "stats_2024.json").read_text()) == [
         {
             "Race Name": "Bahrain Grand Prix",
@@ -42,6 +45,7 @@ def test_pipeline_writes_one_file_per_year_in_readme_shape(tmp_path: Path) -> No
             "Race Fastest Lap": "01:31.4",
         }
     ]
+
     # Null race time becomes midnight; an all-null fastest lap stays null.
     assert json.loads((results_path / "stats_2018.json").read_text()) == [
         {
@@ -52,4 +56,6 @@ def test_pipeline_writes_one_file_per_year_in_readme_shape(tmp_path: Path) -> No
             "Race Fastest Lap": None,
         }
     ]
+
+    # A log file got produced
     assert len(list((results_path / "logs").glob("pipeline_*.log"))) == 1
