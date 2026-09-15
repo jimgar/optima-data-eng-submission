@@ -24,7 +24,7 @@ The gist of the solution is:
 - Combine the aggregated results with the race information
 - For each year, filter the combined data, format to match the example in the README, and write the JSON
 
-The JSON is not pretty-printed because Polars doesn't have an option for that. If you want to spot check any of them by eye you can do e.g. `python3 -m json.tool results/stats_2018.json`.
+The JSON is not pretty-indented because Polars doesn't have an option for that. If you want to spot check any of them by eye you can do e.g. `python3 -m json.tool results/stats_2018.json`.
 
 I've attempted to keep functions short and they are all unit tested for the happy path at minimum.
 
