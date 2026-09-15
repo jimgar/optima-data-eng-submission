@@ -26,8 +26,6 @@ def main(data_path: Path = DATA_PATH, results_path: Path = RESULTS_PATH) -> None
 
     # Parse and clean
 
-    # I/O of a scan loop theoretically will make worse performance, so just read
-    # all into memory (files are miniscule and always will be)
     races_path = data_path / "races.csv"
     df_races = read_data(path=races_path, schema=schema_races_csv)
     logger.info(f"Read {df_races.height} races from {races_path}")
